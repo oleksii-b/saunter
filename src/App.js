@@ -1,5 +1,5 @@
 import React, {Fragment} from 'react';
-import {Switch, Route} from 'react-router-dom';
+import {Switch, Route, Redirect} from 'react-router-dom';
 
 import HeaderContainer from './components/Header';
 import PrivateRoute from './components/PrivateRoute';
@@ -15,6 +15,11 @@ export default function App() {
       <HeaderContainer />
 
       <Switch>
+        <Redirect
+          from='/saunter'
+          to='/'
+        />
+
         <Route
           exact
           path='/'
