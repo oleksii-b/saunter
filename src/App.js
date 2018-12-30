@@ -14,12 +14,12 @@ export default function App() {
     <Fragment>
       <HeaderContainer />
 
-      <Switch>
-        <Redirect
-          from='/saunter'
-          to='/'
-        />
+      <Redirect
+        from='/saunter'
+        to='/'
+      />
 
+      <Switch>
         <Route
           exact
           path='/'
