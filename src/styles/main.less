@@ -1,0 +1,84 @@
+body {
+  background: lavender;
+}
+
+.layout-header {
+  background: lightsteelblue;
+  border-top: 5px solid cornflowerblue;
+  margin-bottom: 20px;
+  padding: 20px 0 15px;
+}
+
+.layout-title {
+  display: inline;
+  font-family: Impact, fantasy;
+}
+
+.main-content {
+  overflow: hidden;
+  padding-top: 10px;
+}
+
+.login-form {
+  max-width: 380px;
+}
+
+.path-content {
+  width: 200%;
+
+  &.active-details {
+    margin-left: -100%;
+  }
+}
+
+.path-preview {
+  margin-bottom: 10px;
+  transition: all 0.25s;
+
+  &--active {
+    background: lightblue;
+  }
+
+  &__container {
+
+    &,
+    &:hover,
+    &:focus {
+      color: #333;
+      text-decoration: none;
+    }
+  }
+}
+
+.path-preview-header {
+  display: flex;
+}
+
+.path-preview-icon {
+  color: goldenrod;
+  margin-right: 8px;
+}
+
+.path-btn-group {
+  display: flex;
+  justify-content: flex-end;
+  margin: 15px 0;
+}
+
+.path-details {
+
+  &__title {
+    align-items: baseline;
+    display: flex;
+    margin-top: 0;
+  }
+
+  &__title-text {
+    flex-grow: 1;
+    margin-right: 8px;
+  }
+
+  &__icon {
+    margin-right: 8px;
+  };
+}
