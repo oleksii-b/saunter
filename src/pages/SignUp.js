@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
 
-function LoginPage({authStatus, setAuthStatus}) {
+function SignUpPage({authStatus, setAuthStatus}) {
   const onFormSubmit = (evt) => {
     evt.preventDefault();
 
@@ -14,30 +14,6 @@ function LoginPage({authStatus, setAuthStatus}) {
     if (form.login.value === 'admin' && form.password.value === 'admin') {
       setAuthStatus(true);
     }
-
-    const post = async () => {
-      const requestBody = JSON.stringify({
-        email: 'test123@test.com',
-        password: '123',
-        returnSecureToken: true
-      });
-
-      const response = await fetch('https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyDPSyS49OgxWtE67umK6mRF-eCZp9RxSAY', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          email: 'test1@test.com',
-          password: '123',
-          returnSecureToken: true
-        })
-      });
-
-      // console.log(response.data);
-    }
-
-    post();
   }
 
   return (
@@ -79,7 +55,7 @@ function LoginPage({authStatus, setAuthStatus}) {
   );
 }
 
-LoginPage.propTypes = {
+SignUpPage.propTypes = {
   authStatus: PropTypes.bool,
   setAuthStatus: PropTypes.func.isRequired
 }
@@ -97,4 +73,4 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpPage);

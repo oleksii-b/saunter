@@ -42,7 +42,9 @@ const updateStore = (store) => {
 store.subscribe(() => updateStore(store.getState()));
 
 ReactDOM.render(
-  <Provider store={store}>
+  <Provider
+    store={store}
+  >
     <BrowserRouter>
       <App />
     </BrowserRouter>

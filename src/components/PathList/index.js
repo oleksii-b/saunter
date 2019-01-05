@@ -17,6 +17,7 @@ class PathListContainer extends Component {
     const paths = this.getSortedPaths([...this.props.paths]);
 
     this.state = {
+      isLoaded: false,
       paths,
       pageCount: Math.ceil(paths.length / this.perPage),
       currentPage: 0,
@@ -47,6 +48,10 @@ class PathListContainer extends Component {
         return nextState;
       });
     }
+
+    this.setState({
+      isLoaded: true
+    });
   }
 
   getSortedPaths(paths) {
@@ -126,6 +131,7 @@ class PathListContainer extends Component {
           activePathId={new URLSearchParams(this.props.location.search).get('id')}
           pathList={this.state.currentPaths}
           viewDetails={this.viewDetails.bind(this)}
+          isLoaded={this.state.isLoaded}
         />
 
         {
