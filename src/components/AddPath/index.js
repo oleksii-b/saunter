@@ -2,7 +2,9 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
+import {addPath} from 'actions';
 import AddPath from './AddPath';
+
 
 
 class AddPathContainer extends Component {
@@ -56,13 +58,10 @@ AddPathContainer.propTypes = {
   addPath: PropTypes.func.isRequired
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  addPath: (path) => {
-    dispatch({
-      type: 'ADD_PATH',
-      payload: path
-    });
-  }
-});
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addPath: (path) => dispatch(addPath(path))
+  };
+};
 
 export default connect(null, mapDispatchToProps)(AddPathContainer);

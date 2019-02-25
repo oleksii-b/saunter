@@ -2,8 +2,11 @@ import React from 'react';
 import {Button} from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
+import {signOut} from 'actions/signOut';
+import propTypes from 'services/prop-types';
 
-export default function Header(props) {
+
+export default function Header({user, signOut}) {
   return (
     <header className='layout-header'>
       <div className='container'>
@@ -12,14 +15,15 @@ export default function Header(props) {
         </h1>
 
         {
-          props.authStatus &&
-          <Button
-            bsStyle='link'
-            className='pull-right'
-            onClick={props.singOut}
-          >
-            Sing out
-          </Button>
+          user
+          &&
+            <Button
+              bsStyle='link'
+              className='pull-right'
+              onClick={signOut}
+            >
+              Sing out
+            </Button>
         }
 
       </div>
@@ -28,6 +32,6 @@ export default function Header(props) {
 }
 
 Header.propTypes = {
-  authStatus: PropTypes.bool,
-  singOut: PropTypes.func.isRequired
+  user: propTypes.user,
+  signOut: PropTypes.func.isRequired
 }

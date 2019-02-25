@@ -1,100 +1,89 @@
 import React from 'react';
 import {Redirect} from 'react-router-dom';
-import {Grid, Row, Col, FormGroup, FormControl, ControlLabel, Button} from 'react-bootstrap';
+import {Grid, Row, Col, FormGroup, FormControl, ControlLabel, Button, Alert} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
+import {signIn} from 'actions/signIn';
+import propTypes from 'services/prop-types';
 
-function LoginPage({authStatus, setAuthStatus}) {
+
+function LoginPage({user, error, signIn}) {
   const onFormSubmit = (evt) => {
     evt.preventDefault();
 
-    const form = evt.target;
-
-    if (form.login.value === 'admin' && form.password.value === 'admin') {
-      setAuthStatus(true);
-    }
-
-    const post = async () => {
-      const requestBody = JSON.stringify({
-        email: 'test123@test.com',
-        password: '123',
-        returnSecureToken: true
-      });
-
-      const response = await fetch('https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyDPSyS49OgxWtE67umK6mRF-eCZp9RxSAY', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          email: 'test1@test.com',
-          password: '123',
-          returnSecureToken: true
-        })
-      });
-
-      // console.log(response.data);
-    }
-
-    post();
+    signIn({
+      login: form.login.value,
+      pwd: form.password.value
+    });
   }
 
   return (
     <div className='login-form container'>
       {
-        authStatus ?
-        <Redirect to='/' />
+        user === null
+        ?
+          <form onSubmit={onFormSubmit}>
+            <FormGroup>
+              <ControlLabel>
+                Login:
+              </ControlLabel>
+
+              <FormControl
+                type='text'
+                name='login'
+                defaultValue='email@test.com'
+              />
+            </FormGroup>
+
+            <FormGroup>
+              <ControlLabel>
+                Password:
+              </ControlLabel>
+
+              <FormControl
+                type='password'
+                name='password'
+                defaultValue='123456'
+              />
+            </FormGroup>
+
+            {
+              error
+              &&
+                <Alert
+                  bsStyle='danger'
+                  className='text-center'
+                >
+                  {error}
+                </Alert>
+            }
+
+            <Button
+              type='submit'
+              bsClass='btn btn-primary btn-block'
+            >
+              Sign In
+            </Button>
+          </form>
         :
-        <form onSubmit={onFormSubmit}>
-          <FormGroup>
-            <ControlLabel>Login:</ControlLabel>
-
-            <FormControl
-              type='text'
-              name='login'
-              defaultValue='admin'
-            />
-          </FormGroup>
-
-          <FormGroup>
-            <ControlLabel>Password:</ControlLabel>
-
-            <FormControl
-              type='password'
-              name='password'
-              defaultValue='admin'
-            />
-          </FormGroup>
-
-          <Button
-            type='submit'
-            bsClass='btn btn-primary btn-block'
-          >
-            Sign In
-          </Button>
-        </form>
+          <Redirect to='/' />
       }
     </div>
   );
 }
 
 LoginPage.propTypes = {
-  authStatus: PropTypes.bool,
-  setAuthStatus: PropTypes.func.isRequired
+  user: propTypes.user
 }
 
 const mapStateToProps = (state) => ({
-  authStatus: state.auth
+  user: state.signIn.user,
+  error: state.signIn.error
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setAuthStatus: (authStatus) => {
-    dispatch({
-      type: 'SET_AUTH_STATUS',
-      payload: authStatus
-    });
-  }
+  signIn: (credentials) => dispatch(signIn(credentials))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

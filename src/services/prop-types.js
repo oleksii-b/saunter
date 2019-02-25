@@ -10,6 +10,11 @@ class Types {
       length: PropTypes.number.isRequired,
       isFavorite: PropTypes.boolean
     });
+
+    this.user = PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.oneOf([null]),
+    ]);
   }
 }
 

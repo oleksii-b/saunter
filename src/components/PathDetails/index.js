@@ -3,8 +3,9 @@ import {Alert} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
-import PathDetails from './PathDetails';
+import {removePath, updatePath} from 'actions';
 import propTypes from 'services/prop-types';
+import PathDetails from './PathDetails';
 
 
 function PathDetailsContainer(props) {
@@ -70,19 +71,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  removePath: (pathId) => {
-    dispatch({
-      type: 'REMOVE_PATH',
-      payload: pathId
-    });
-  },
-
-  updatePath: (path) => {
-    dispatch({
-      type: 'UPDATE_PATH',
-      payload: path
-    });
-  }
+  removePath: (pathId) => dispatch(removePath(pathId)),
+  updatePath: (path) => dispatch(updatePath(path))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PathDetailsContainer);

@@ -3,26 +3,33 @@ import {Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
+import propTypes from 'services/prop-types';
 
-function HomePage({authStatus}) {
+
+function HomePage({user}) {
   return (
     <Fragment>
       {
-        authStatus ?
-        <Redirect to='/paths' />
+        user === null
+        ?
+          <Redirect
+            to='/login'
+          />
         :
-        <Redirect to='/login' />
+          <Redirect
+            to='/paths'
+          />
       }
     </Fragment>
   );
 }
 
 HomePage.propTypes = {
-  authStatus: PropTypes.bool
+  user: propTypes.user
 }
 
 const mapStateToProps = (state) => ({
-  authStatus: state.auth
+  user: state.signIn.user
 });
 
 export default connect(mapStateToProps)(HomePage);

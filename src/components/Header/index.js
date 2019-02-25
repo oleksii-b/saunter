@@ -2,38 +2,30 @@ import React from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
+import {signOut} from 'actions/signOut';
 import Header from './Header';
+import propTypes from 'services/prop-types';
 
 
-function HeaderContainer({authStatus, setAuthStatus}) {
-  const singOut = () => {
-    setAuthStatus(false)
-  }
-
+function HeaderContainer(props) {
   return (
     <Header
-      authStatus={authStatus}
-      singOut={singOut}
+      user={props.user}
+      signOut={props.signOut}
     />
   );
 }
 
 HeaderContainer.propTypes = {
-  authStatus: PropTypes.bool,
-  setAuthStatus: PropTypes.func.isRequired
+  user: propTypes.user
 }
 
 const mapStateToProps = (state) => ({
-  authStatus: state.auth
+  user: state.signIn.user
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setAuthStatus: (authStatus) => {
-    dispatch({
-      type: 'SET_AUTH_STATUS',
-      payload: authStatus
-    });
-  }
+  signOut: () => dispatch(signOut())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HeaderContainer);
